@@ -1,5 +1,5 @@
 # CommandLineEmailClient
-Command Line Email Client
+Command Line Email Client for IBM Notes.
 
 # OPENNTF
     This project is an OpenNTF project, and is available under the Apache License V2.0.  
