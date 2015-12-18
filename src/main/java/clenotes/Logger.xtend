@@ -29,6 +29,11 @@ class Logger {
 	def static void log(Object msg) {
 		if (Configuration::logEnabled) {
 
+			val logDir=new File("log")
+			if (logDir.exists==false)
+			{
+				logDir.mkdir
+			}
 			//open log file
 			val PrintWriter logWriter = new PrintWriter(new FileWriter(new File("log/clenotes.log"), true))
 			logWriter.println(">> " + formatter.format(new Date()) + ": " + msg)
