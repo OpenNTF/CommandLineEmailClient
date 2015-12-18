@@ -10,9 +10,10 @@
 	<properties>
 		<!-- Local dependency to IBM Notes.jar file -->
 		<!-- notes.jar.location needs to be changed to local setup! 
-		Use NOTES_JAR_LOCATION environment variable or hard code the location
+		Use NOTES_JAR_LOCATION environment variable or hard code the location.
+		If using env variable, use ${env.NOTES_JAR_LOCATION} instead of hard coded path.
 		 -->
-		<notes.jar.location>${env.NOTES_JAR_LOCATION}</notes.jar.location>
+		<notes.jar.location>c:\notes\jvm\lib\ext\Notes.jar</notes.jar.location>
 		<assembly.appendAssemblyId>false</assembly.appendAssemblyId>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
