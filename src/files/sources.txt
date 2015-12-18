@@ -1,0 +1,3 @@
+Source is available at GitHub.
+
+https://github.com/OpenNTF/CommandLineEmailClient

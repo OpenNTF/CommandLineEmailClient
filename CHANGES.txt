@@ -1,0 +1,213 @@
+Version 5.2 (18.12.2015)
+
+- Moved to Maven building and packaging. Consequence: development can be 
+  done without Eclipse IDE.
+- Source code available at GitHub.
+- Updated Xtend libraries to v2.9.0. 
+- Removed separate config file and added it to Configuration.xtend
+  (in the future: configuration to be refactored).
+
+Version 5.1.4 (17.06.2015)
+
+- Updated Xtend libraries to v2.8.3. 
+
+Version 5.1.3 (25.05.2015)
+
+- Bug fix when receiving MIME emails. Now decodes all MIME text content.
+
+Version 5.1.2 (07.05.2015)
+
+- Bug fix in attached file name when using --html option and --attach option.
+
+Version 5.1.1 (12.02.2015)
+
+- Added PostedDate-field to mail document when sending new mail.
+
+Version 5.1 (12.01.2015)
+
+- Updated development environment to Eclipse 4.4 and Java 1.7.
+- Updated Xtend libraries to v2.7.3. 
+- Added value to --dxl option. Option value is file name where DXL is written.
+- Moved --dxl option from read-command to global option. --dxl exports 
+  Domino XML and it can now be used with read, today, list and search commands.
+- Added argument to --help option. Argument is command name or "!" that lists
+  global options and only command names.
+- Added --dxli option to import DXL file as mail database. All commands will
+  then use the new database.
+- Added shell-command. Taken almost directly from CLENotes v1.0 (from 2002)
+  but does not include all the commands.
+- Code refactoring.
+ 
+Version 5.0.9 (04.09.2014)
+
+- Added --source-folder option to read-command. Used together with 
+  --move-to-folder option. If not specified, default source folder is "$Inbox".
+- Added --view option to search-command. Only --fulltext search is available
+  when searching from view.  
+
+Version 5.0.8 (18.08.2014)
+
+- Added --linelen option to read-command. Sets line length of read mail. Works
+  only for Notes RichText mails.
+- Updated Xtend libraries to v2.6.0. 
+- Modified NOTICE file.
+
+Version 5.0.7 (30.04.2014)
+
+- Typo in help text of --attach-option.
+- Bug fix when using commas in --attach, --body and --signature options of 
+  send-command.
+
+Version 5.0.6 (27.03.2014)
+
+- Added --charset option to send-command. Use --charset option to specify
+  charset of file in --file-body option when sending mail. 
+- Bug fix when using --adjust-day option with search- and list-commands.
+- Bug fix when sending mail with commas in --subject-option. 
+
+Version 5.0.5 (27.02.2014)
+
+- Updated Xtend libraries to v2.5.1. 
+- Changed search-commands --subject option not to include mails from the 
+  current user.
+- Bug fix when listing documents without delivery date.
+- Added --replace option to read-command. When detaching attachments and using
+  --replace option overwrites existing file. By default, if file already 
+  exists, file name is modified by adding a sequence number to it.
+
+Version 5.0.4 (30.01.2014)
+
+- Bug fix in send-command. Now uses UTF-8 to read body file when specified using
+  --file-body option. 
+
+Version 5.0.3 (20.01.2014)
+
+- Bug fix in send-command. Sent only mail to one recipient if sending mail to
+  multiple senders using --to, --cc or --bcc options.
+- Bug fix using --file-to, --file-cc and --file-bcc options in send-command.
+
+Version 5.0.2 (15.01.2014)
+
+- Slightly changed log-file format.
+- Added --log option to enable logging for current session. 
+- Changed today-command to be consistent with list-command. Now prints only 
+  mails. To return all documents, use the newly added --all option 
+  in today-command.
+- Added --all option to list-command.
+- Added --fields option to read-command to print all fields and types in the
+  mail document.
+- Added --fieldvalues option to read-command to print value(s) of given field. 
+- Bug fix when detaching MIME attachments and using --detach-file-option. 
+
+Version 5.0.1 (12.12.2013)
+
+- Added support for detaching attachments in native MIME mails.
+    -Note: inline-attachments not supported.
+- No longer prints sent mails when using list-command.
+- Added "a" to --output-format-option. "a" lists attachments.
+- Improvements when using read-command or --read option:
+    - Improved support for reading MIME/RichText mails.
+    - By default removes all tags when reading HTML mails. 
+    - Added --no-striphtmltags option to disable HTML tag removal.
+    - Added --all-mime-texts option that prints all text MIME parts. 
+      By default, only the first text MIME part is printed, usually text/plain.
+- Added --formula-file option to search-command. Reads Notes formula from the 
+  given file.
+- Minor bug fixes.
+
+Version 5.0.0 (20.11.2013)
+
+- New codebase based on Xtend (http://www.eclipse.org/xtend/). 
+- Changed name to Command Line Email Client for IBM Notes.
+- Semi-automatic installation of Notes Java classes to CLENotes directory.
+- Replicate-command now has --replica-id option in order to
+  open local database (note: replicate-command only replicates from local
+  database to server database).
+- Default function of Replicate-command is to replicate local mail database.
+- Added --local option to choose local mail database. By default, all commands
+  operate on remote mail database.
+- Added --desc option to appointments-command to show appointment description.
+- Some bug fixes.
+- Known bug/missing feature:
+    -Attachments in native MIME mails can not be detached
+
+Version 4.2.3 (05.12.2012)
+
+- Bug fix when listing mail and mail is sent by agent.
+
+Version 4.2.2 (29.11.2012)
+
+- Added --sincedate option to appointments command.
+- Added --required and --optional options to appointments command to 
+  list appointment participants.
+- Moved appointments-command to Mail.py.
+- Some bug fixes.
+
+
+Version 4.2.1 (07.09.2012)
+
+- Fixed bug when signing and encrypting mail.
+- Moved maildbinfo-command to Mail.py from External_Functions.py.
+- Added default return code 0.
+- Added support for multi-byte files for --file-body option
+  by Yasuhiro Onoda, IBM Japan
+
+Version 4.2.0 (28.04.2011)
+
+- Added --sortorder and --sortfield options to sort emails 
+  when searching or listing emails.
+
+Version 4.1.1 (17.12.2010)
+
+- Bug fixes when sending mail.
+
+Version 4.1.0 (03.12.2010)
+
+- Added --database option to replicate command.
+
+Version 4.0.0 (01.11.2010)
+
+- Changed name to 'Command Line Email Client for Lotus Notes' 
+  and short name 'CLENotes'
+- Added error handling when Lotus Notes classes not found.
+- Changed license to Apache license 2.0.
+- Removed Notes.jar classes from distribution package. 
+- Removed old NotesCLI 2.x package from distribution package.
+
+Version 3.4.0 (02.02.2010)
+
+- Added text formatting in --body option. '\n' now inserts
+  newline in email body.
+- Added --signature and --file-signature options.
+- Improved support for sending HTML mails. Can now add 
+  attachments to HTML mails.
+- Added --folder option to specify folder to access when
+  using list-command.
+- Added '*' value to --read option. "--read=*"-option reads 
+  all mails in list, search or today command results.
+- Added new option --move-to-folder to read mail options. 
+- Minor changes. 
+ 
+Version 3.3.0 (13.11.2009)
+
+- Added --principal option to send-command. This specifies and overrides 
+  from-address in email.
+- Added appointments-command to list future appointments.
+- Fixed a bug when sending mail with cc- or bcc-addresses.
+- Made --server option mandatory when using replicate command.
+- Fixed bug related sending mails where body is 
+  larger than 32k. 
+- Preliminary support for sending HTML mails.
+
+Version 3.2.0 (04.06.2009)
+
+- Added two new options --server-name and --database-name. Use these
+  to open mail database on remote server. Local Notes user must be 
+  allowed to access the remote database.
+
+Version 3.1.0 (24.03.2009)
+
+- Removed External.py from distribution and added External_Functions.py to
+  distribution. If External.py is not found when executing program then
+  External_Functions.py is copied to External.py.
+- Modified executable so that NotesCLI can be executed from any directory.

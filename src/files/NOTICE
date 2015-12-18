@@ -1,0 +1,25 @@
+Command Line Email Client for IBM Notes v5.2
+Copyright (c) 2002, 2015 IBM Corp.
+Licensed under the Apache License, Version 2.0.
+
+This program includes software contributed to 
+the OpenNTF Alliance (http://www.OpenNTF.org/)
+
+This program requires Lotus Notes Java classes. Classes are
+in Notes.jar file, that is found in Lotus Notes client installation directory.
+Notes.jar classes are extracted to classes-directory by the program.
+
+This program uses Xtend SDK libraries under
+Eclipse Public License v1.0 (http://www.eclipse.org/legal/epl-v10.html)
+(c) Copyright Eclipse contributors and others. 2004, 2012.  All rights reserved.
+Source: http://projects.eclipse.org/projects/modeling.tmf.xtext/developer
+
+Xtend SDK libraries use Xtext libraries under
+Eclipse Public License v1.0 (http://www.eclipse.org/legal/epl-v10.html)
+(c) Copyright Eclipse contributors and others. 2004, 2012.  All rights reserved.
+Source: http://projects.eclipse.org/projects/modeling.tmf.xtext/developer
+
+Xtend SDK libraries use Google Guava libraries under
+Apache License, Version 2.0.
+Copyright (c) 2007-2011 Google Inc. All rights reserved.
+Source: http://code.google.com/p/guava-libraries/source/checkout

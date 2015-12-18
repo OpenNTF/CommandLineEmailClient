@@ -1,0 +1,86 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>clenotes</groupId>
+	<artifactId>clenotes</artifactId>
+	<version>5.2</version>
+	<name>CLENotes</name>
+	<description>Command Line Email Client for IBM Notes</description>
+
+	<properties>
+		<!-- Local dependency to IBM Notes.jar file -->
+		<!-- notes.jar.location needs to be changed to local setup! 
+		Use NOTES_JAR_LOCATION environment variable or hard code the location
+		 -->
+		<notes.jar.location>${env.NOTES_JAR_LOCATION}</notes.jar.location>
+		<assembly.appendAssemblyId>false</assembly.appendAssemblyId>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.eclipse.xtend</groupId>
+			<artifactId>org.eclipse.xtend.lib</artifactId>
+			<version>2.9.0</version>
+		</dependency>
+
+<!-- Uncomment when updating Xtend libs and comment when building dist file-->
+	<!--
+	<dependency>
+		<groupId>org.eclipse.xtend</groupId>
+		<artifactId>xtend-maven-plugin</artifactId>
+		<version>2.9.0</version>
+	</dependency>
+
+-->
+		<dependency>
+			<groupId>com.ibm.notes</groupId>
+			<artifactId>notesjar</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${notes.jar.location}</systemPath>
+		</dependency>
+
+	</dependencies>
+	<build>
+		<defaultGoal>clean package</defaultGoal>
+		<plugins>
+			<plugin>
+				<groupId>org.eclipse.xtend</groupId>
+				<artifactId>xtend-maven-plugin</artifactId>
+				<version>2.9.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>compile</goal>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/xtend-gen/main</outputDirectory>
+							<testOutputDirectory>${project.build.directory}/xtend-gen/test</testOutputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<descriptors>
+						<descriptor>src/assembly/dist.xml</descriptor>
+					</descriptors>
+				</configuration>
+				<executions>
+					<execution>
+						<id>make-assembly</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
