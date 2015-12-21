@@ -17,7 +17,7 @@ CLENotes is tested with Windows but Linux and Mac should work too.
 ##Installation
 
 1. The first thing to do is to add IBM Notes directory to system PATH environment variable. Otherwise, executing clenotes.cmd will give error: java.lang.UnsatisfiedLinkError: no nlsxbe in java.library.path so make sure that IBM Notes directory included in PATH.
-2. Unzip *clenotes-<version>*.zip to a directory of your choosing.
+2. Unzip *clenotes-VERSION*.zip to a directory of your choosing.
 3. When executing CLENotes for the first time, the program checks Notes Java classes availability. If classes are not present, CLENotes asks to install them and tries to automatically find IBM Notes Java classes by searching commonly used Notes installation directories and then extracting it's contents to classes-directory. If CLENotes doesn't find Notes.jar, user is prompted for it's location.
 4. Windows: See the help using clenotes.cmd --help and start using the program.
 5. Linux and other platforms: clenotes.sh should work. Or open clenotes.cmd/.sh in a text editor to see the Java syntax and start using the program.
@@ -39,7 +39,7 @@ See full command line help using: ```clenotes.cmd --help```.
 
 ##Sample commands
 
-A few sample commands are here: [src/files/samplecommands.html](https://github.com/OpenNTF/CommandLineEmailClient/blob/master/src/files/samplecommands.html).
+A few sample commands are here: [src/files/samplecommands.md](https://github.com/OpenNTF/CommandLineEmailClient/blob/master/src/files/samplecommands.md).
 
 ##Development
 
