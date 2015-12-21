@@ -61,7 +61,7 @@
 			<outputDirectory>/</outputDirectory>
 		</file>
 		<file>
-			<source>src/files/samplecommands.html</source>
+			<source>src/files/samplecommands.md</source>
 			<outputDirectory>/</outputDirectory>
 		</file>
 		<file>
