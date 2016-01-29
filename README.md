@@ -50,7 +50,7 @@ In order to build CLENotes, location of Notes.jar must be either specified in po
 or NOTES_JAR_LOCATION environment variable must be pointed to Notes.jar location.
 
 By default, starting maven build cleans existing build and then compiles and packages
-CLENotes to target-directory. Distribution file is clenotes-<version>.zip.
+CLENotes to target-directory. Distribution file is clenotes-VERSION.zip.
 
 ##History
 

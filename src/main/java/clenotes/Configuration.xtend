@@ -25,7 +25,7 @@ import java.util.Vector
 
 class Configuration {
 	public val static PROGRAM_NAME = "Command Line Email Client for IBM Notes"
-	public val static VERSION = "5.2"
+	public val static VERSION = "5.2.1"
 
 	public val static HEADER = '''«PROGRAM_NAME» v«VERSION»
 Copyright (C) 2002, 2015 by IBM Corporation.

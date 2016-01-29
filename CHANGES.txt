@@ -1,3 +1,7 @@
+Version 5.2.1 (28.01.2016)
+
+- Bug fix when using --log option and log-directory does not exist.
+
 Version 5.2 (18.12.2015)
 
 - Moved to Maven building and packaging. Consequence: development can be 
