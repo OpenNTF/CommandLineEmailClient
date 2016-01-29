@@ -1,5 +1,5 @@
 /*
- * Copyright 2002, 2015 IBM Corp.
+ * Copyright 2002, 2016 IBM Corp.
  *
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ class Configuration {
 	public val static VERSION = "5.2.1"
 
 	public val static HEADER = '''«PROGRAM_NAME» v«VERSION»
-Copyright (C) 2002, 2015 by IBM Corporation.
+Copyright (C) 2002, 2016 by IBM Corporation.
 Licensed under the Apache License v2.0.
 '''
 	public val static MAILER = '''«PROGRAM_NAME» v«VERSION»'''
