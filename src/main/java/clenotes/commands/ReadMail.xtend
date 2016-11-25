@@ -72,6 +72,11 @@ class ReadMail {
 			return false
 		}
 
+		if (cmd.hasOption("attachments")) {
+			println(mailDocument.getAttachmentNames())
+			return false
+		}
+
 		var replace = cmd.hasOption("replace")
 
 		var printMailToScreen = true

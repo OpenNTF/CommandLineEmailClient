@@ -161,6 +161,10 @@ class DocumentExtensions {
 		return doc.getAttachmentNames(null, null, false, replaceFile)
 	}
 
+	def static String getAttachmentNames(Document doc) {
+		return doc.getAttachmentNames(null, null, false, false)
+	}
+
 	def static String getAttachmentNames(Document doc, String detachDir, String detachAttachmentName, boolean detachAll,
 		boolean replaceFile) {
 		Logger::log("Getting attachment names....")
@@ -283,7 +287,7 @@ class DocumentExtensions {
 			if (a.type == EmbeddedObject::EMBED_ATTACHMENT) {
 				var fileName = a.name
 				str.append(fileName)
-				str.append(", ")
+				str.append(",")
 				var dir = "."
 				if (detachAll || detachAttachmentName != null) {
 					if (detachDir != null) {
@@ -313,7 +317,7 @@ class DocumentExtensions {
 		}
 
 		var names = str.toString
-		if (names.endsWith(",")) {
+		if (names.trim().endsWith(",")) {
 			names = names.substring(0, names.length - 1)
 		}
 
@@ -638,7 +642,7 @@ class DocumentExtensions {
 		var itemValues = document.getItemValue(fieldName)
 
 		if (itemValues.size == 0) {
-			println("  N/A")
+			println("  N/A")						
 		}
 		for (value : itemValues) {
 			println("  " + value)

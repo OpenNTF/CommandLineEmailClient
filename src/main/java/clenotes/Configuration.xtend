@@ -94,6 +94,7 @@ search.--read!: Read specific mail (given as index, or '*' for all mails) from r
 search.--list: List mail from result set. See also list-command options.   
 
 read.cmd:Read latest mail or use with today, list or search commands
+read.--attachments: Print attachment file names in this mail document.  
 read.--linelen: Line length of mail to be read. Works only for Notes RichText mails.  
 read.--fields: Print all fields and their types in mail document.
 read.--fieldvalues!: Print value(s) of given field.  

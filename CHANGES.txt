@@ -1,3 +1,8 @@
+Version 5.2.2 (25.11.2016)
+
+- Updated Xtend libraries to v2.10.0. 
+- Added --attachments to read-command to print attachment file names.
+
 Version 5.2.1 (28.01.2016)
 
 - Bug fix when using --log option and log-directory does not exist.
