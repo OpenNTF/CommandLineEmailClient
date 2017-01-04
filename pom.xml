@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>clenotes</groupId>
 	<artifactId>clenotes</artifactId>
-	<version>5.2.2</version>
+	<version>5.2.3</version>
 	<name>CLENotes</name>
 	<description>Command Line Email Client for IBM Notes</description>
 

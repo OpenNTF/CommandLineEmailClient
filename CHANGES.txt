@@ -1,3 +1,7 @@
+Version 5.2.3 (04.01.2017)
+
+- Can now search mails using both subject and sender.
+
 Version 5.2.2 (25.11.2016)
 
 - Updated Xtend libraries to v2.10.0. 
