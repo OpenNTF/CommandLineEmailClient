@@ -160,8 +160,10 @@ appointments.--optional: List optional participants.
 
 shell.cmd: Command line email shell, like v1.0 in the old days.
 
-test.cmd: Command for experimentation.
-
+dev.cmd: Command for development/experimentation.
+dev.--folderrefs: Show status of folder references.
+dev.--enable: Enable folder references.
+dev.--disable: Disable folder references.
 
 [configuration]
 #Program configuration. Add here static configuration that is not expected to 

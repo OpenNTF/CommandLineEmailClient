@@ -120,8 +120,8 @@ class CLENotes implements Runnable {
 						case "shell": {
 							Shell::execute(command)
 						}
-						case "test": {
-							Test::execute(command)
+						case "dev": {
+							Dev::execute(command)
 						}
 					}
 				}
