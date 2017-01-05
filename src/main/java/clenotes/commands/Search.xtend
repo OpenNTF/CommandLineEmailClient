@@ -74,9 +74,14 @@ class Search {
 
 			var mailSubjectSearchString = ""
 			if (subject != null) {
+				if (cmd.hasOption("self")) {
+					mailSubjectSearchString = String.format('@Contains(Subject;"%s")', subject)
 
-				mailSubjectSearchString = String.format('@Contains(Subject;"%s") & !@Contains(From;"%s")', subject,
-					notesSession.commonUserName)
+				} else {
+					mailSubjectSearchString = String.format('@Contains(Subject;"%s") & !@Contains(From;"%s")', subject,
+						notesSession.commonUserName)
+
+				}
 			}
 
 			var mailSenderSearchString = ""

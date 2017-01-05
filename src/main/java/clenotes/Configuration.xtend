@@ -92,6 +92,7 @@ search.--fulltext!: Search mails using full text.
 search.--view!: Search mails from specified View. Only --fulltext search is available and --adjust-day is ignored.  
 search.--read!: Read specific mail (given as index, or '*' for all mails) from result set. See also read-command options.   
 search.--list: List mail from result set. See also list-command options.   
+search.--self: Match also mails sent by self when searching by subject.   
 
 read.cmd:Read latest mail or use with today, list or search commands
 read.--attachments: Print attachment file names in this mail document.  
