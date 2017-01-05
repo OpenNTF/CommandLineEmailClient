@@ -27,7 +27,7 @@ import clenotes.commands.Send
 import clenotes.commands.Shell
 import clenotes.commands.Today
 import clenotes.utils.DxlUtils
-import clenotes.commands.Test
+import clenotes.commands.Dev
 
 class CLENotes implements Runnable {
 
