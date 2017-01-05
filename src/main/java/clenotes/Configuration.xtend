@@ -25,7 +25,7 @@ import java.util.Vector
 
 class Configuration {
 	public val static PROGRAM_NAME = "Command Line Email Client for IBM Notes"
-	public val static VERSION = "5.2.3"
+	public val static VERSION = "5.3"
 
 	public val static HEADER = '''«PROGRAM_NAME» v«VERSION»
 Copyright (C) 2002, 2017 by IBM Corporation.
@@ -159,6 +159,8 @@ appointments.--required: List required participants.
 appointments.--optional: List optional participants.
 
 shell.cmd: Command line email shell, like v1.0 in the old days.
+
+test.cmd: Command for experimentation.
 
 
 [configuration]

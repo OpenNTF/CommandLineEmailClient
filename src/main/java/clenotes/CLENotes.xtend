@@ -27,6 +27,7 @@ import clenotes.commands.Send
 import clenotes.commands.Shell
 import clenotes.commands.Today
 import clenotes.utils.DxlUtils
+import clenotes.commands.Test
 
 class CLENotes implements Runnable {
 
@@ -118,6 +119,9 @@ class CLENotes implements Runnable {
 						}
 						case "shell": {
 							Shell::execute(command)
+						}
+						case "test": {
+							Test::execute(command)
 						}
 					}
 				}

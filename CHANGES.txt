@@ -1,3 +1,7 @@
+Version 5.3 (04.01.2017)
+
+- Added test-commmand for experimentation during development.
+
 Version 5.2.3 (04.01.2017)
 
 - Can now search mails using both subject and sender.
