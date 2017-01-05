@@ -1,6 +1,8 @@
-Version 5.3 (04.01.2017)
+Version 5.3 (05.01.2017)
 
-- Added test-commmand for experimentation during development.
+- Added dev-commmand for development/experimentation.
+- Added --self to search-command to match mails sent by self
+  when searching by subject.
 
 Version 5.2.3 (04.01.2017)
 
