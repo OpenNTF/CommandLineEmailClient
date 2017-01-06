@@ -21,10 +21,10 @@ import clenotes.CLENotesSession
 import clenotes.Command
 import clenotes.CommandLineArguments
 import clenotes.utils.DxlUtils
-import lotus.domino.DateTime
 import lotus.domino.Document
 import lotus.domino.DocumentCollection
 
+import static extension clenotes.utils.extensions.DatabaseExtensions.*
 import static extension clenotes.utils.extensions.DocumentCollectionExtensions.*
 import static extension clenotes.utils.extensions.DocumentExtensions.*
 
@@ -65,6 +65,19 @@ class List {
 
 		} else {
 
+			var adjustDay=-1
+			var adjustDayOption = CommandLineArguments::getValue("adjust-day")
+			if (adjustDayOption != null) {
+				adjustDay = Integer::parseInt(adjustDayOption)
+			}
+			if (cmd.hasOption("all")) {
+				docCollection = mailDb.findAllDocuments(adjustDay)
+			} else {
+				docCollection = mailDb.findMailDocuments(adjustDay)
+			}
+
+
+/* 
 			var DateTime dt = null
 
 			var adjustDay = CommandLineArguments::getValue("adjust-day")
@@ -80,7 +93,7 @@ class List {
 				docCollection = mailDb.search(
 					"From!=\"" + notesSession.getUserName() + "\" & (Form=\"Memo\" | Form=\"Reply\")", dt)
 			}
-
+*/
 		}
 
 		if (cmd.hasOption("checkMIME")) {

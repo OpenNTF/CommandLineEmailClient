@@ -22,10 +22,10 @@ import clenotes.Command
 import clenotes.CommandLineArguments
 import clenotes.Logger
 import clenotes.utils.DxlUtils
-import lotus.domino.DateTime
 import lotus.domino.Document
 import lotus.domino.DocumentCollection
 
+import static extension clenotes.utils.extensions.DatabaseExtensions.*
 import static extension clenotes.utils.extensions.DocumentCollectionExtensions.*
 
 class Today {
@@ -107,9 +107,20 @@ class Today {
 	}
 
 	def static getMail(int adjustDay, boolean allDocuments) {
-		var notesSession = CLENotesSession.getSession
+		//var notesSession = CLENotesSession.getSession
 		var mailDb = CLENotesSession::getMailDatabase()
 
+		var DocumentCollection docCollection
+		if (allDocuments)
+		{
+			docCollection=mailDb.findAllDocuments(adjustDay)						
+		}
+		else
+		{
+			docCollection=mailDb.findMailDocuments(adjustDay)
+		}
+		docCollection
+/* 
 		var DateTime dt = notesSession.createDateTime("Yesterday")
 
 		if (adjustDay > 0) {
@@ -125,7 +136,7 @@ class Today {
 		}
 
 		docCollection
-
+*/
 	}
 
 }

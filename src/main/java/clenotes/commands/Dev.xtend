@@ -26,6 +26,7 @@ class Dev{
 	def static execute(Command cmd) {
 
 		println("Command of development/experimentation.")
+		println()
 		var notesSession = CLENotesSession.getSession
 		var mailDb = CLENotesSession::getMailDatabase()
 		
