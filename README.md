@@ -24,7 +24,7 @@ CLENotes is tested with Windows but Linux and Mac should work too.
 
 ##Usage
 
-Usage: clenotes.cmd [OPTIONS] [CMD [CMD-OPTIONS] [CMD ...] ]. See sample commands.
+Usage: ```clenotes.cmd [OPTIONS] [CMD [CMD-OPTIONS] [CMD ...] ]```. See sample commands.
 Commands include:
 
 - today - Read todays mail.
