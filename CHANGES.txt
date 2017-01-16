@@ -15,7 +15,7 @@ Version 5.3 (16.01.2017)
 - Changed --log option so that it now overwrites existing log file. 
 - Added --loga option to enable logging for current session and 
   append to existing log file.
-- Changed help so that global options and command are listed
+- Changed help so that global options and commands are listed
   in alphabetical order.
 - Refactoring.
 
