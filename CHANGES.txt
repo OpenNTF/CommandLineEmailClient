@@ -1,6 +1,6 @@
 Version 5.3 (16.01.2017)
 
-- Added dev-commmand for development/experimentation/misc.
+- Added dev-command for development/experimentation/misc.
 - Added --folderrefs option to dev-command to view/enable/disable
   folder references.
 - Added --self to search-command to match mails sent by self 
