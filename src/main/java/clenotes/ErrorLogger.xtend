@@ -17,6 +17,7 @@
 */
 package clenotes
 
+
 class ErrorLogger {
 
 	private var static _errorCode = 0

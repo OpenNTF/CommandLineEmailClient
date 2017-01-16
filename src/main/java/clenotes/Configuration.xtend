@@ -1,20 +1,20 @@
 /*
  * Copyright 2002, 2017 IBM Corp.
- *
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.  
- *
+ * 
  *  Author: Sami Salkosuo, sami.salkosuo@fi.ibm.com
-*/
+ */
 package clenotes
 
 import java.io.BufferedReader
@@ -38,7 +38,7 @@ Licensed under the Apache License v2.0.
 	public var static Map<String, Option> globalOptionMap = newLinkedHashMap()
 
 	var static List<String> options = new Vector<String>()
-	public var static commandMap = newLinkedHashMap()
+	public var static Map<String, Command> commandMap = newLinkedHashMap()
 	var static List<String> commands = new Vector<String>()
 	public var static configMap = newLinkedHashMap()
 
@@ -46,8 +46,8 @@ Licensed under the Apache License v2.0.
 
 	var static logParsing = false
 
-	//TODO: change to better configuration
-	val static configString='''#Command Line Email Client for IBM Notes configuration
+	// TODO: change to better configuration
+	val static configString = '''#Command Line Email Client for IBM Notes configuration
 
 [options]
 #Options provided by program. Do not change existing.
@@ -55,7 +55,8 @@ Licensed under the Apache License v2.0.
 #that option requires argument. Remember to use -- with option. Only long
 #options are supported. 
 --help!: List options and commands. Optional argument is command name to get help or "!" to list command names only.
---log:Enabled logging for current session.
+--log:Enable logging for current session. Deletes old log file and writes new. 
+--loga:Enable logging for current session. Appends to existing log file. 
 --noheader:Do not print header.
 --version: Version info.|versionInfo
 --password!: Users Notes ID password
@@ -72,19 +73,17 @@ Licensed under the Apache License v2.0.
 --database-name!: Name of the database to be opened.
 --dxl!: Exports mail as DXL. Optional value is file name where DXL is exported.  
 --dxli!: Import DXL as mail database to be used.
+--folder!: Specify mail folder to be used. By default 'All documents' is used. Requires folder references to be enabled.
 #--host!: Server host name or IP address.
 #--username!: User name to access server.
 
 [commands]
 #help.cmd: Lists all options and commands.
 
-today.cmd:Read todays mail.
-today.--all: Print all todays documents, not only mails.
-today.--read!: Read specific mail (given as index, or '*' for all mails) from result set. See also read-command options.
-today.--list: List mail from result set. See also list-command options.   
+today.cmd:List todays mail. Equivalent of using 'clenotes --adjust-day=0 list' command.
 
 search.cmd:Search mail.
-search.--subject!: Search mails with subject.  
+search.--subject!: Search mails with subject. 
 search.--from!: Search mails with sender address.  
 search.--formula!: Search mails using Notes formula.  
 search.--formula-file!: Search mails using Notes formula in specified file.
@@ -92,7 +91,8 @@ search.--fulltext!: Search mails using full text.
 search.--view!: Search mails from specified View. Only --fulltext search is available and --adjust-day is ignored.  
 search.--read!: Read specific mail (given as index, or '*' for all mails) from result set. See also read-command options.   
 search.--list: List mail from result set. See also list-command options.   
-search.--self: Match also mails sent by self when searching by subject.   
+search.--self: Match also mails sent by self when searching by subject.
+search.--nocase: Use case-insensitive when searching by from or subject.   
 
 read.cmd:Read latest mail or use with today, list or search commands
 read.--attachments: Print attachment file names in this mail document.  
@@ -146,7 +146,7 @@ list.--start!: Start index when listing mail.
 list.--end!: End index when listing mail.
 list.--sortorder!: Sort mails. Use value ASC or DESC. Default is ASC
 list.--sortfield!: Sort mails by field. Use values DATE, SUBJECT or FROM. Default is DATE.
-list.--folder!: Specify mail folder to be used. Default is inbox ($Inbox).
+list.--folderview!: Specify mail folder to be used. Used when folder is actually a view.
 
 maildbinfo.cmd:Mail database information. Use --server-name, --replica-id or --database-name to specify database other than mail database.
 notes-version.cmd: The release of Domino the session is running on.
@@ -165,6 +165,8 @@ dev.cmd: Command for development/experimentation.
 dev.--folderrefs: Show status of folder references.
 dev.--enable: Enable folder references.
 dev.--disable: Disable folder references.
+dev.--listfolders: List folders and their UNIDs.
+dev.--putallinfolder: Put all documents in folders. Use after enabling folder references.
 
 [configuration]
 #Program configuration. Add here static configuration that is not expected to 
@@ -175,16 +177,15 @@ write_log: false
 
 	def static load() {
 //		val BufferedReader br = new BufferedReader(new FileReader(new File('config/clenotes.cfg')))
-
 		val BufferedReader br = new BufferedReader(new StringReader(configString))
-		//load config file
+		// load config file
 		var String line
 
 		while ((line = br.readLine()) != null) {
-			line=line.trim
+			line = line.trim
 			switch line {
 				case line.startsWith("#") || line.empty: {
-					//ignore comments and empty lines
+					// ignore comments and empty lines
 				}
 				case line.equals("[options]"):
 					ConfigurationSection::setOption
@@ -208,6 +209,7 @@ write_log: false
 				}
 			}
 		}
+
 		br.close()
 	}
 
@@ -223,7 +225,7 @@ write_log: false
 
 	def static parse() {
 
-		//parse config file entries
+		// parse config file entries
 		for (option : options) {
 			val firstIndex = option.indexOf(":")
 			var name = option.substring(0, firstIndex)
@@ -250,20 +252,20 @@ write_log: false
 			val commandName = command.substring(0, command.indexOf("."))
 			if (command.contains(".cmd")) {
 
-				//extract command name
+				// extract command name
 				var commandDescription = command.substring(command.indexOf(":") + 1)
 				commandDescription = removeFunctionName(commandDescription)
 				var cmd = new Command()
 				cmd.setName(commandName)
 				cmd.setDescription(commandDescription)
 
-				//commandName, commandDescription, new Vector<Option>())
+				// commandName, commandDescription, new Vector<Option>())
 				commandMap.put(commandName, cmd)
 			} else {
 				var commandObj = commandMap.get(commandName) as Command;
 				if (command.contains("--")) {
 
-					//command option
+					// command option
 					var optionString = command.substring(command.indexOf(".") + 1)
 					if(logParsing) Logger::log("Option in config: %s", optionString)
 					val cInd = optionString.indexOf(":")
@@ -308,7 +310,6 @@ write_log: false
 
 	def static setLogEnabled(boolean enabled) {
 		LOG_ENABLED = enabled
-
 	}
 
 	def static isLogEnabled() {

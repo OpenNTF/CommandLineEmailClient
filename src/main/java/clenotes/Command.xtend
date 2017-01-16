@@ -52,6 +52,13 @@ class Command {
 
 	}
 
+	/**
+	 * 
+	 * @param Option name.
+	 *
+	 * @return Option value. Or null if option does not exist.
+	 * 
+	 */
 	def getOptionValue(String optionName) {
 
 		var valueList = getOptionValues(optionName)
@@ -67,6 +74,13 @@ class Command {
 
 	}
 
+	/**
+	 * 
+	 * @param Option name.
+	 * 
+	 * @return Option value as List<String>. Or null if option does not exist.
+	 * 
+	 */
 	def getOptionValues(String optionName) {
 		var Option option = optionMap.get(optionName)
 		var List<String> values = null

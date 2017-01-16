@@ -62,7 +62,9 @@ class Help {
 		var cmdNamesOnly = helpWithCmdName == "!"
 
 		val commandMap = Configuration::commandMap
-		val commandNames = commandMap.keySet
+		val _commandNames = commandMap.keySet		
+		val commandNames=_commandNames.sort
+		
 		val commandIndent = "  "
 		for (name : commandNames) {
 			var command = commandMap.get(name) as Command
@@ -87,7 +89,9 @@ class Help {
 	}
 
 	private static def printOptions(String indent, Map<String, Option> optionMap) {
-		val optionNames = optionMap.keySet
+		val _optionNames = optionMap.keySet
+		val optionNames=_optionNames.sort
+		
 		for (name : optionNames) {
 			val option = optionMap.get(name)
 			val String optName = option.name

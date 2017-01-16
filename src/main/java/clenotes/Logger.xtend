@@ -24,20 +24,22 @@ import java.text.SimpleDateFormat
 import java.util.Date
 
 class Logger {
-	static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z")
+
+	public val static LOG_DIR=new File("log")
+	public val static LOG_FILE=new File(LOG_DIR,"clenotes.log")
+
+	static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS Z")
 
 	def static void log(Object msg) {
 		if (Configuration::logEnabled) {
 
-			val logDir=new File("log")
-			if (logDir.exists==false)
+			if (LOG_DIR.exists==false)
 			{
-				logDir.mkdir
+				LOG_DIR.mkdir				
 			}
-			//open log file
-			val PrintWriter logWriter = new PrintWriter(new FileWriter(new File("log/clenotes.log"), true))
-			logWriter.println(">> " + formatter.format(new Date()) + ": " + msg)
-			//logWriter.println("<<")
+
+			val PrintWriter logWriter = new PrintWriter(new FileWriter(LOG_FILE, true))
+			logWriter.println(formatter.format(new Date()) + ": " + msg)
 			logWriter.close()
 		}
 	}

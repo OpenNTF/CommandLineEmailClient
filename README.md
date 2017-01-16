@@ -41,6 +41,37 @@ See full command line help using: ```clenotes.cmd --help```.
 
 A few sample commands are here: [src/files/samplecommands.md](https://github.com/OpenNTF/CommandLineEmailClient/blob/master/src/files/samplecommands.md).
 
+##Folders
+
+Starting from version 5.3, CLENotes has support for folders. There is global '--folder' option that is used to select folder and it is supported in today,list and search commands.
+
+Notes/Domino does not use folder references by default.
+For the curious, these two support docs may be interesting: [LotusScript FolderReferences property helps determine in which folders a document is stored](http://www-01.ibm.com/support/docview.wss?rs=463&uid=swg21092899) and [LotusScript FolderReferences property not populated when document is moved to folder](http://www-01.ibm.com/support/docview.wss?uid=swg21209890)
+
+**Note:** maintaining folder references impacts performance.
+
+####Enable folder references
+ 
+In order to use folders, you need to enable it. Enable it using this command:
+
+```clenotes.cmd dev --folderrefs --enable``` 
+
+This enables folder tracking for all future mails/documents.
+For all existing documents, folders are still not tracked.
+
+Use this command to move all existing mails to their folders:
+
+```clenotes.cmd dev --folderrefs --putallinfolder``` 
+
+After folder references are enabled, mails can be listed or searched from specified folder.
+For example, following command searches all mails with subject 'January' from 'project'-folder:
+
+```clenotes.cmd --folder=project search --subject=January``` 
+
+To disable folder references, use this command:
+
+```clenotes.cmd dev --folderrefs --disable``` 
+
 ##Development
 
 CLENotes source is [Xtend](https://eclipse.org/xtend/), a dialect of Java, and it was [chosen for a reason](http://sami.salkosuo.net/reasons-for-xtend/).

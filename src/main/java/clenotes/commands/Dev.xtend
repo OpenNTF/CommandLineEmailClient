@@ -20,29 +20,30 @@ package clenotes.commands
 import clenotes.CLENotesSession
 import clenotes.Command
 import lotus.domino.Database
+import lotus.domino.View
+import lotus.domino.ViewEntry
 
-class Dev{
+import static extension clenotes.utils.extensions.DatabaseExtensions.*
+
+class Dev {
 
 	def static execute(Command cmd) {
 
-		println("Command of development/experimentation.")
+		println("Command for development/experimentation/misc.")
 		println()
-		var notesSession = CLENotesSession.getSession
+		// var notesSession = CLENotesSession.getSession
 		var mailDb = CLENotesSession::getMailDatabase()
-		
-		if (cmd.hasOption("folderrefs"))
-		{
-			folderRefs(mailDb,cmd)	
+
+		if (cmd.hasOption("folderrefs")) {
+			folderRefs(mailDb, cmd)
 		}
-		
 
 	}
-	
-	private def static folderRefs(Database mailDb, Command cmd)
-	{
+
+	private def static folderRefs(Database mailDb, Command cmd) {
 		/*
-		 * Domino does not track in which folder document is
-		 * Can be enabled? But existing documents are not tracked, only new ones
+		 * By default, Domino does not track in which folder document is.
+		 * Folder references can be enabled. But existing documents are not tracked, only new ones
 		 * http://www-01.ibm.com/support/docview.wss?uid=swg21209890 
 		 * 
 		 * See also:
@@ -58,20 +59,53 @@ class Dev{
 		} else {
 			println("Folder references are NOT enabled.")
 		}
-		
-		if (cmd.hasOption("enable"))
-		{
+
+		if (cmd.hasOption("enable")) {
 			mailDb.setFolderReferencesEnabled(true)
 			println("Folder references are NOW ENABLED.")
 		}
-		if (cmd.hasOption("disable"))
-		{
+		if (cmd.hasOption("disable")) {
 			mailDb.setFolderReferencesEnabled(false)
 			println("Folder references are NOW DISABLED.")
 		}
-		
+
+		if (cmd.hasOption("listfolders")) {
+			var folderName = "$FolderAllInfo"
+			var folderView = mailDb.getView(folderName)
+			if (folderView == null) {
+				println(folderName + " is NULL")
+			} else {
+				var entries = folderView.allEntries
+				var ViewEntry tmpEntry = null
+				var entry = entries.firstEntry
+				while (entry != null) {
+					var values = entry.columnValues
+					for (value : values) {
+						print(value)
+						print(" ")
+					}
+					println()
+					tmpEntry = entries.nextEntry
+					entry.recycle
+					entry = tmpEntry
+				}
+			}
+			
+			println()
+			var folderMap=mailDb.folders
+			println(folderMap)
+			
+		}
+
+		if (cmd.hasOption("putallinfolder")) {
+			for (_view : mailDb.views) {
+				var view = _view as View
+				if (view.isFolder) {
+					var entryCollection=view.allEntries
+					entryCollection.putAllInFolder(view.name)					
+				}
+			}
+		}
+
 	}
-		
-	
-	
 }

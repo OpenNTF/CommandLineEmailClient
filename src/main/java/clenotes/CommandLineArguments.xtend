@@ -73,6 +73,17 @@ class CommandLineArguments {
 			i = i + 1
 		}
 
+		//put all global command line options to all command
+		for (cmdName : commandMap.keySet)
+		{
+			var cmd = commandMap.get(cmdName) as Command
+			var opts = cmd.optionMap
+			for (goptName : globalOptionMap.keySet)
+			{
+				opts.put(goptName, globalOptionMap.get(goptName))
+			}
+		}
+
 		Logger::log("Global Options in command line: " + globalOptionMap)
 		Logger::log("Commands  in command line: " + commandMap)
 

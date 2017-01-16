@@ -1,8 +1,23 @@
-Version 5.3 (05.01.2017)
+Version 5.3 (16.01.2017)
 
-- Added dev-commmand for development/experimentation.
-- Added --self to search-command to match mails sent by self
+- Added dev-commmand for development/experimentation/misc.
+- Added --folderrefs option to dev-command to view/enable/disable
+  folder references.
+- Added --self to search-command to match mails sent by self 
   when searching by subject.
+- Moved --folder option from list-command to be a global option.
+  It can now be used with today and search commands. 
+  Folders require folder references to be enabled.
+- Added --folderview option to list-command to view mails in specified
+  folder (in reality, a view).
+- Added --nocase option to search-command to allow case-insensitive
+  searches by subject or sender.
+- Changed --log option so that it now overwrites existing log file. 
+- Added --loga option to enable logging for current session and 
+  append to existing log file.
+- Changed help so that global options and command are listed
+  in alphabetical order.
+- Refactoring.
 
 Version 5.2.3 (04.01.2017)
 

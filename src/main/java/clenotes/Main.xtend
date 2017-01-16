@@ -44,6 +44,13 @@ class Main {
 			for (arg : args) {
 				if (arg == "--log") {
 					Configuration::setLogEnabled(true)
+					if (Logger.LOG_FILE.exists)
+					{
+						Logger.LOG_FILE.delete
+					}
+				}
+				if (arg == "--loga") {
+					Configuration::setLogEnabled(true)					
 				}
 			}
 

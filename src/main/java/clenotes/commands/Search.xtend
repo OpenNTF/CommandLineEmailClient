@@ -32,6 +32,7 @@ import lotus.domino.DocumentCollection
 import lotus.domino.View
 
 import static extension clenotes.utils.extensions.DocumentCollectionExtensions.*
+import static extension clenotes.utils.extensions.DatabaseExtensions.*
 
 class Search {
 
@@ -40,13 +41,26 @@ class Search {
 		var notesSession = CLENotesSession.getSession
 		var mailDb = CLENotesSession::getMailDatabase()
 
+		var String folderID = null
+		if (cmd.hasOption("folder")) {
+
+			var folderName = cmd.getOptionValue("folder")
+			Logger::log("Folder name: %s", folderName)
+
+			folderID = mailDb.getFolderID(folderName)
+			if (folderID == null) {
+				return
+			}
+
+		}
+
 		var DocumentCollection docCollection = null
 		var fulltext = cmd.getOptionValue("fulltext")
 
 		if (cmd.hasOption("view")) {
 
 			if (fulltext == null) {
-				ErrorLogger::error(-101, "Search option --fulltext must be specified when using view-search.")
+				ErrorLogger::error(-103, "Search option --fulltext must be specified when using view-search.")
 				return
 			}
 			var viewName = cmd.getOptionValue("view")
@@ -68,26 +82,42 @@ class Search {
 			var formulaFile = cmd.getOptionValue("formula-file")
 
 			if (subject == null && sender == null && formula == null && formulaFile == null && fulltext == null) {
-				ErrorLogger::error(-101, "Search option must be specified.")
+				ErrorLogger::error(-105, "Search option must be specified.")
 				return
 			}
 
 			var mailSubjectSearchString = ""
 			if (subject != null) {
-				if (cmd.hasOption("self")) {
-					mailSubjectSearchString = String.format('@Contains(Subject;"%s")', subject)
 
+				var searchString = ""
+				if (cmd.hasOption("nocase")) {
+					searchString = '@Contains(@LowerCase(Subject);@LowerCase("%s"))'
 				} else {
-					mailSubjectSearchString = String.format('@Contains(Subject;"%s") & !@Contains(From;"%s")', subject,
-						notesSession.commonUserName)
+					searchString = '@Contains(Subject;"%s")'
+				}
 
+				mailSubjectSearchString = String.format(searchString, subject)
+
+				if (!cmd.hasOption("self")) {
+
+					mailSubjectSearchString = String.format('%s & !@Contains(From;"%s")', mailSubjectSearchString,
+						notesSession.commonUserName)
 				}
 			}
 
 			var mailSenderSearchString = ""
 			if (sender != null) {
+				if (cmd.hasOption("nocase")) {
+				mailSenderSearchString = String.format('@Contains(@LowerCase(From);@LowerCase("%s")) | @Contains(@LowerCase(Principal);@LowerCase("%s"))', sender,
+					sender)
+					
+				}
+				else
+				{
 				mailSenderSearchString = String.format('@Contains(From;"%s") | @Contains(Principal;"%s")', sender,
 					sender)
+					
+				}
 
 			}
 
@@ -108,8 +138,15 @@ class Search {
 				mailSearchString = String.format("(%s) & (%s)", mailSenderSearchString, mailSubjectSearchString)
 			}
 
+			// search from folder
+			if (folderID != null) {
+				mailSearchString = String.format('%s & @Contains(@Text($FolderRef);"%s")', mailSearchString, folderID)
+
+			}
+
 			if (formulaFile != null) {
 
+				Logger::log("Formula file: %s", formulaFile)
 				// read formula from a file
 				var file = new File(formulaFile)
 				if (file.exists()) {
@@ -124,7 +161,8 @@ class Search {
 					output.close
 					formula = output.toString
 				} else {
-					println("[ERROR] File does not exist: " + file + ".")
+						ErrorLogger::error(-110, "File does not exist: " + file + ".")
+						return
 				}
 			}
 			if (formula != null) {

@@ -135,10 +135,13 @@ class CLENotes implements Runnable {
 
 		//catch any exception and throw them again
 		} catch (RuntimeException re) {
-			ErrorLogger.setErrorCode(110)
+			ErrorLogger.setErrorCode(-2)
 			throw re
 		} catch (Exception e) {
-			ErrorLogger.setErrorCode(111)
+			ErrorLogger.setErrorCode(-3)
+			throw e
+		} catch (Throwable e) {
+			ErrorLogger.setErrorCode(-4)
 			throw e
 		} finally {
 
