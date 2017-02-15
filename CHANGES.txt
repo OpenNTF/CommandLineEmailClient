@@ -1,3 +1,7 @@
+Version 5.3.1 (15.02.2017)
+
+- Fixed listing and detaching attachments in some MIME emails. 
+
 Version 5.3 (16.01.2017)
 
 - Added dev-command for development/experimentation/misc.
