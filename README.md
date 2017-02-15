@@ -21,6 +21,7 @@ CLENotes is tested with Windows but Linux and Mac should work too.
 3. When executing CLENotes for the first time, the program checks Notes Java classes availability. If classes are not present, CLENotes asks to install them and tries to automatically find IBM Notes Java classes by searching commonly used Notes installation directories and then extracting it's contents to classes-directory. If CLENotes doesn't find Notes.jar, user is prompted for it's location.
 4. Windows: See the help using clenotes.cmd --help and start using the program.
 5. Linux and other platforms: clenotes.sh should work. Or open clenotes.cmd/.sh in a text editor to see the Java syntax and start using the program.
+6. In order to use clenotes from any directory, modify clenotes.cmd/.sh file and add installation path to classpath. For example:  ```java -classpath c:/path/to/clenotes/classes;c:/path/to/clenotes/lib/* clenotes.Main %*```. Then add clenotes.cmd/.sh to PATH.
 
 ##Usage
 
