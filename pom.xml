@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>clenotes</groupId>
 	<artifactId>clenotes</artifactId>
-	<version>5.3.1</version>
+	<version>5.3.2</version>
 	<name>CLENotes</name>
 	<description>Command Line Email Client for IBM Notes</description>
 
@@ -22,15 +22,21 @@
 		<dependency>
 			<groupId>org.eclipse.xtend</groupId>
 			<artifactId>org.eclipse.xtend.lib</artifactId>
-			<version>2.10.0</version>
+			<version>2.11.0</version>
 		</dependency>
 
-<!-- Uncomment when updating Xtend libs and comment when building dist file-->
 <!-- 
+
+Uncomment dependency below when updating Xtend libs and comment when building dist file.
+
+If not commented, clenotes dist file includes lots of unnecessary jar-files.
+
+-->
+ <!-- 
 	<dependency>
 		<groupId>org.eclipse.xtend</groupId>
 		<artifactId>xtend-maven-plugin</artifactId>
-		<version>2.10.0</version>
+		<version>2.11.0</version>
 	</dependency>
  -->
 
@@ -49,7 +55,7 @@
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
-				<version>2.10.0</version>
+				<version>2.11.0</version>
 				<executions>
 					<execution>
 						<goals>
