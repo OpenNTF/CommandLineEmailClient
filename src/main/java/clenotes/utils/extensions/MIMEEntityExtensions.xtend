@@ -79,7 +79,8 @@ class MIMEEntityExtensions {
 	def static getContentAsText(MIMEEntity mime) {
 		var text = new StringBuffer()
 		var subContentType = mime.contentSubType
-		Logger::log("mime subcontenttype: %s. Encoding: %s (is decoded, if necessary)", subContentType, mime.encodingString)
+		Logger::log("mime subcontenttype: %s. Encoding: %s (is decoded, if necessary)", subContentType,
+			mime.encodingString)
 		mime.decodeContent()
 		switch (subContentType) {
 			case "html": {
@@ -127,17 +128,24 @@ class MIMEEntityExtensions {
 		var header = mimeEntity.getNthHeader("Content-Disposition")
 		if (header != null) {
 			if (header.headerVal == "attachment") {
-
+				Logger::log("Attachment exist.")
 				// attachment exists
 				// note: inline attachments not supported
 				name = header.getParamVal("filename")
 				name = name.replace("\"", "").trim
-
+				if (name == null || name == "") {
+					name = getFileNameFromContentType(mimeEntity)
+				}
+				Logger::log("Attachment name: " + name)
+				// if name is null or empty it is not found
+				// check content-type mime header
 				// save attachment only if saving all attachments or attachment name
 				// contains given attachmentname
 				if (!getNamesOnly && (attachmentName == null || name.contains(attachmentName))) {
 					var session = CLENotesSession.session
 					var Stream stream = session.createStream();
+
+					name=Utils.replaceInvalidCharactersInFileName(name) 
 
 					var filePath = dir + name
 					if (!replaceFile) { // if --replace option not specified, modify file name
@@ -152,6 +160,28 @@ class MIMEEntityExtensions {
 					}
 				}
 			}
+		}
+
+		if (name == null || name == "") {
+			// if name is null or empty it is not found
+			// check content-type mime header
+			name = getFileNameFromContentType(mimeEntity)
+		}
+
+		name
+	}
+
+	def static getFileNameFromContentType(MIMEEntity mimeEntity) {
+		var name = "unknown"
+		var header = mimeEntity.getNthHeader("Content-Type")
+		Logger::log("Content-Type header exists: " + (header != null))
+		if (header != null) {
+			var valAndParams = header.headerValAndParams
+			Logger::log("Value and params: " + valAndParams)
+
+			var nameIndex = valAndParams.indexOf("name=")
+			valAndParams = valAndParams.substring(nameIndex + 5)
+			name = valAndParams.replace("\"", "").trim
 		}
 		name
 	}

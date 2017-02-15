@@ -178,8 +178,10 @@ class DocumentExtensions {
 		Logger::log("getAttachmentNames: " + doc)
 
 		var hasNativeMIME = doc.hasItem("$NoteHasNativeMIME")
+		Logger::log("hasNativeMIME: " + hasNativeMIME)
 
 		var hasMIMEAttachments = hasNativeMIME && doc.hasEmbedded
+		Logger::log("hasMIMEAttachments : " + hasMIMEAttachments)
 		if (hasMIMEAttachments && (detachAll || detachAttachmentName != null)) {
 
 			//detach native MIME attachments
@@ -224,6 +226,7 @@ class DocumentExtensions {
 			}
 
 			if (docAttachments.size == 0) {
+				Logger::log("docAttachments.size == 0")
 
 				//cast item to RichTextItem and try to get attachments from that
 				try {
@@ -441,11 +444,15 @@ class DocumentExtensions {
 		session.setConvertMIME(false)
 
 		var MIMEEntity mime = doc.getMIMEEntity();
+		Logger::log("mime is null: " + (mime == null))
 
 		if (mime != null) {
 
+			val isMultipartEntity=mime.getContentType().equals("multipart")
+			Logger::log("isMultipartEntity: " + isMultipartEntity)
+	
 			// If multipart MIME entity
-			if (mime.getContentType().equals("multipart")) {
+			if (isMultipartEntity) {
 
 				var MIMEEntity child1 = mime.getFirstChildEntity();
 
@@ -479,6 +486,7 @@ class DocumentExtensions {
 				if (contentType == "application") {
 					var String name = null
 					name = mime.detachAttachment( _detachDir, getNamesOnly, attachmentName, replaceFile)
+					names = names + name + ","
 				}
 			}
 		}

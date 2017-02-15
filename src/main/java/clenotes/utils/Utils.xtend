@@ -110,4 +110,23 @@ class Utils {
 
 	}
 
+	def static replaceInvalidCharactersInFileName(String fileName)
+	{
+		var name=fileName
+		//invalid characters in filename
+		//https://en.wikipedia.org/wiki/Filename
+		name=name.replace("\\","-")
+		name=name.replace("/","-")
+		name=name.replace("?","-")
+		name=name.replace("%","-")
+		name=name.replace("*","-")
+		name=name.replace(":","-")
+		name=name.replace("|","-")
+		name=name.replace("\"","-")
+		name=name.replace("<","-")
+		name=name.replace(">","-")
+		
+		name
+	}
+	
 }
