@@ -5,7 +5,7 @@ Functions include reading mail, sending mail, listing mail and searching mail an
 
 Latest release is available from OpenNTF: [CLENotes@OpenNTF](http://www.openntf.org/main.nsf/project.xsp?r=project/command%20line%20email%20client/)
 
-##Requirements
+## Requirements
 
 - IBM Notes, v8 or later, client must be installed locally.
 - IBM Domino as mail server.
@@ -14,7 +14,7 @@ Latest release is available from OpenNTF: [CLENotes@OpenNTF](http://www.openntf.
 
 CLENotes is tested with Windows but Linux and Mac should work too.
 
-##Installation
+## Installation
 
 1. The first thing to do is to add IBM Notes directory to system PATH environment variable. Otherwise, executing clenotes.cmd will give error: java.lang.UnsatisfiedLinkError: no nlsxbe in java.library.path so make sure that IBM Notes directory included in PATH.
 2. Unzip *clenotes-VERSION*.zip to a directory of your choosing.
@@ -23,7 +23,7 @@ CLENotes is tested with Windows but Linux and Mac should work too.
 5. Linux and other platforms: clenotes.sh should work. Or open clenotes.cmd/.sh in a text editor to see the Java syntax and start using the program.
 6. In order to use clenotes from any directory, modify clenotes.cmd/.sh file and add installation path to classpath. For example:  ```java -classpath c:/path/to/clenotes/classes;c:/path/to/clenotes/lib/* clenotes.Main %*```. Then add clenotes.cmd/.sh to PATH.
 
-##Usage
+## Usage
 
 Usage: ```clenotes.cmd [OPTIONS] [CMD [CMD-OPTIONS] [CMD ...] ]```. See sample commands.
 Commands include:
@@ -38,11 +38,11 @@ Commands include:
 
 See full command line help using: ```clenotes.cmd --help```.
 
-##Sample commands
+## Sample commands
 
 A few sample commands are here: [src/files/samplecommands.md](https://github.com/OpenNTF/CommandLineEmailClient/blob/master/src/files/samplecommands.md).
 
-##Folders
+## Folders
 
 Starting from version 5.3, CLENotes has support for folders. There is global '--folder' option that is used to select folder and it is supported in today,list and search commands.
 
@@ -51,7 +51,7 @@ For the curious, these two support docs may be interesting: [LotusScript FolderR
 
 **Note:** maintaining folder references impacts performance.
 
-####Enable folder references
+#### Enable folder references
  
 In order to use folders, you need to enable it. Enable it using this command:
 
@@ -73,7 +73,7 @@ To disable folder references, use this command:
 
 ```clenotes.cmd dev --folderrefs --disable``` 
 
-##Development
+## Development
 
 CLENotes source is [Xtend](https://eclipse.org/xtend/), a dialect of Java, and it was [chosen for a reason](http://sami.salkosuo.net/reasons-for-xtend/).
 
@@ -84,7 +84,7 @@ or NOTES_JAR_LOCATION environment variable must be pointed to Notes.jar location
 By default, starting maven build cleans existing build and then compiles and packages
 CLENotes to target-directory. Distribution file is clenotes-VERSION.zip.
 
-##History
+## History
 
 CLENotes has been available for a long time, ever since 2002: 
 
@@ -92,7 +92,7 @@ CLENotes has been available for a long time, ever since 2002:
 - http://sami.salkosuo.net/history-in-the-making
 - http://sami.salkosuo.net/clenotes-v1-0-discovered/
 
-####OPENNTF
+#### OPENNTF
     This project is an OpenNTF project, and is available under the Apache License V2.0.  
     All other aspects of the project, including contributions, defect reports, discussions, 
     feature requests and reviews are subject to the OpenNTF Terms of Use - available at 
