@@ -23,6 +23,19 @@ CLENotes is tested with Windows but Linux and Mac should work too.
 5. Linux and other platforms: clenotes.sh should work. Or open clenotes.cmd/.sh in a text editor to see the Java syntax and start using the program.
 6. In order to use clenotes from any directory, modify clenotes.cmd/.sh file and add installation path to classpath. For example:  ```java -classpath c:/path/to/clenotes/classes;c:/path/to/clenotes/lib/* clenotes.Main %*```. Then add clenotes.cmd/.sh to PATH.
 
+### Linux and Mac
+
+CLENotes works on Linux/Mac as long as both IBM Notes and Java are installed. However, making it work may require a bit more than uninstalling the zip-file.
+
+- A very common error is: *java.lang.UnsatisfiedLinkError: no nlsxbe in java.library.path*
+  - This error is explained here: [http://www-01.ibm.com/support/docview.wss?uid=swg21201491](http://www-01.ibm.com/support/docview.wss?uid=swg21201491).
+- Solution is to add java.library.path system property to java-command: ```java -classpath /path/to/clenotes/classes;/path/to/clenotes/lib/* -Djava.library.path=/path/to/notes clenotes.Main %*```.
+- However, that may not work. This post [http://www.lbenitez.com/2009/02/atlas-for-mac-is-here.html](http://www.lbenitez.com/2009/02/atlas-for-mac-is-here.html) explains what was needed to run Notes app on Mac. 
+  - Solution was to add *export DYLD_LIBRARY_PATH=/path/to/notes* to .profile.
+- On Linux env variable is *LD_LIBRARY_PATH* and setting *export LD_LIBRARY_PATH=/path/to/notes* may be needed before running CLENotes.
+
+
+
 ## Usage
 
 Usage: ```clenotes.cmd [OPTIONS] [CMD [CMD-OPTIONS] [CMD ...] ]```. See sample commands.
