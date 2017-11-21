@@ -63,7 +63,7 @@ class Command {
 
 		var valueList = getOptionValues(optionName)
 		var String value = null
-		if (valueList != null) {
+		if (valueList !== null) {
 			if (valueList.size > 1) {
 				value = valueList.join(",")
 			} else {
@@ -84,7 +84,7 @@ class Command {
 	def getOptionValues(String optionName) {
 		var Option option = optionMap.get(optionName)
 		var List<String> values = null
-		if (option != null) {
+		if (option !== null) {
 			values = option.values
 		}
 		values

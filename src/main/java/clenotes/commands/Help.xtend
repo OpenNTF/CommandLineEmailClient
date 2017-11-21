@@ -71,7 +71,7 @@ class Help {
 			if (cmdNamesOnly) {
 				helpWithCmdName = name as String
 			}
-			if (helpWithCmdName == null || name == helpWithCmdName) {
+			if (helpWithCmdName === null || name == helpWithCmdName) {
 				val cmdName = commandIndent + command.name
 				var java.util.List<String> desc = command.description.split(" ")
 

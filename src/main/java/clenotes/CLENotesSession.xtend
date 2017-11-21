@@ -33,8 +33,8 @@ class CLENotesSession {
 	 * Must be called during startup of CLENotes
 	 */
 	def static initSession(String serverHost, String password) {
-		if (session == null) {
-			if (password != null) {
+		if (session === null) {
+			if (password !== null) {
 				session = NotesFactory::createSession(serverHost, null as String, password)
 
 			} else {
@@ -50,7 +50,7 @@ class CLENotesSession {
 	 * Must be called during startup of CLENotes if using remote access
 	 */
 	def static initSession(String serverHost, String username, String password) {
-		if (session == null) {
+		if (session === null) {
 
 			session = NotesFactory::createSession(serverHost, username, password)
 		}
@@ -68,7 +68,7 @@ class CLENotesSession {
 
 	def static Database getMailDatabase() {
 
-		if (mailDB == null) {
+		if (mailDB === null) {
 			if (CommandLineArguments::hasOption("dxli")) {
 				mailDB = DxlUtils.importDxl()
 			} else {
@@ -93,7 +93,7 @@ class CLENotesSession {
 	def static Database openDatabase(DbDirectory dbDirectory, String databaseName, String _replicaId) {
 
 		var replicaId = _replicaId
-		if (databaseName == null && replicaId == null) {
+		if (databaseName === null && replicaId === null) {
 
 			if (CommandLineArguments::hasOption("local")) {
 				var Database db = dbDirectory.openMailDatabase();
@@ -105,12 +105,12 @@ class CLENotesSession {
 			}
 		}
 
-		if (replicaId != null) {
+		if (replicaId !== null) {
 			return dbDirectory.openDatabaseByReplicaID(replicaId)
 
 		}
 
-		if (databaseName != null) {
+		if (databaseName !== null) {
 			return dbDirectory.openDatabase(databaseName, false)
 
 		}

@@ -58,7 +58,7 @@ class Appointments {
 			docCollection = mailDb.search(searchAppointmentString)
 			var doc = docCollection.getFirstDocument();
 			var index1 = 1
-			while (doc != null) {
+			while (doc !== null) {
 				var appointmentType = doc.getItemValue("AppointmentType")
 				var appointmentFrom = doc.getItemValueString("From")
 				var location = doc.getItemValueString("Location")
@@ -154,7 +154,7 @@ class Appointments {
 
 		var doc = docCollection.getLastDocument();
 		var index1 = 1
-		while (doc != null) {
+		while (doc !== null) {
 
 			var appointmentType = doc.getItemValue("AppointmentType")
 			var appointmentFrom = doc.getItemValueString("From")

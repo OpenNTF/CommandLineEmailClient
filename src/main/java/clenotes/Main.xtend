@@ -203,7 +203,7 @@ class Main {
 		var entry = jarFile.getNextEntry
 		var fileCount = 0
 		var currentNameLength = 0
-		while (entry != null) {
+		while (entry !== null) {
 			val name = entry.getName
 
 			//print("\r"+name+" ".times(-name.length))

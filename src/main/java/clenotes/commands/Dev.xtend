@@ -72,13 +72,13 @@ class Dev {
 		if (cmd.hasOption("listfolders")) {
 			var folderName = "$FolderAllInfo"
 			var folderView = mailDb.getView(folderName)
-			if (folderView == null) {
+			if (folderView === null) {
 				println(folderName + " is NULL")
 			} else {
 				var entries = folderView.allEntries
 				var ViewEntry tmpEntry = null
 				var entry = entries.firstEntry
-				while (entry != null) {
+				while (entry !== null) {
 					var values = entry.columnValues
 					for (value : values) {
 						print(value)

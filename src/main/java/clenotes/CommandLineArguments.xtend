@@ -134,13 +134,13 @@ class CommandLineArguments {
 
 	def static hasOption(String optionName) {
 		var option = globalOptionMap.get(optionName)
-		option != null
+		option !== null
 	}
 
 	def static getValue(String optionName) {
 		var option = globalOptionMap.get(optionName) as Option
 		var String value = null
-		if (option != null) {
+		if (option !== null) {
 			value = option.value
 		}
 		value
@@ -150,7 +150,7 @@ class CommandLineArguments {
 	def static getValues(String optionName) {
 		var option = globalOptionMap.get(optionName) as Option
 		var List<String> values = null
-		if (option != null) {
+		if (option !== null) {
 			values = option.values
 		}
 		values
