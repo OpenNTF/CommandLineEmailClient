@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>clenotes</groupId>
 	<artifactId>clenotes</artifactId>
-	<version>5.3.2</version>
+	<version>5.4.0</version>
 	<name>CLENotes</name>
 	<description>Command Line Email Client for IBM Notes</description>
 
@@ -22,23 +22,30 @@
 		<dependency>
 			<groupId>org.eclipse.xtend</groupId>
 			<artifactId>org.eclipse.xtend.lib</artifactId>
-			<version>2.11.0</version>
+			<version>2.13.0</version>
 		</dependency>
 
 <!-- 
 
 Uncomment dependency below when updating Xtend libs and comment when building dist file.
-
 If not commented, clenotes dist file includes lots of unnecessary jar-files.
 
+Steps to do when updating:
+- change extend versions in this pom.xml
+- uncomment dependency below
+- execute: mvn package
+- comment dependency below
+- execute: mvn clean
+- execute: mvn package
 -->
- <!-- 
+
+<!--  
 	<dependency>
 		<groupId>org.eclipse.xtend</groupId>
 		<artifactId>xtend-maven-plugin</artifactId>
-		<version>2.11.0</version>
+		<version>2.13.0</version>
 	</dependency>
- -->
+-->
 
 		<dependency>
 			<groupId>com.ibm.notes</groupId>
@@ -55,7 +62,7 @@ If not commented, clenotes dist file includes lots of unnecessary jar-files.
 			<plugin>
 				<groupId>org.eclipse.xtend</groupId>
 				<artifactId>xtend-maven-plugin</artifactId>
-				<version>2.11.0</version>
+				<version>2.13.0</version>
 				<executions>
 					<execution>
 						<goals>

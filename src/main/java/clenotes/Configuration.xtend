@@ -25,7 +25,7 @@ import java.util.Vector
 
 class Configuration {
 	public val static PROGRAM_NAME = "Command Line Email Client for IBM Notes"
-	public val static VERSION = "5.3.2"
+	public val static VERSION = "5.4.0"
 
 	public val static HEADER = '''«PROGRAM_NAME» v«VERSION»
 Copyright (C) 2002, 2017 by IBM Corporation.
@@ -58,11 +58,11 @@ Licensed under the Apache License v2.0.
 --log:Enable logging for current session. Deletes old log file and writes new. 
 --loga:Enable logging for current session. Appends to existing log file. 
 --noheader:Do not print header.
---version: Version info.|versionInfo
+--version: Version info.
 --password!: Users Notes ID password
 --replica-id!: Select local database by specifying replica ID of the local database. Use "maildbinfo" command to get replica ID of local mail database.
 --local: Use local mail database.
---output-format!: Custom output format string when listing emails. Formatting options: "d=Date", "t=time", "Z=timezone", "g=GMT time", "s=subject", "f=from", "I=from (inet address)", "m=mailer", "D=message id", "S=message size", "!=do not print index number", "a=list attachments". For example: --output-format=dts print email date, time and subject in one line.  
+--output-format!: Custom output format string when listing emails. Formatting options: "d=Date", "t=time", "Z=timezone", "g=GMT time", "s=subject", "f=from", "I=from (inet address)", "m=mailer", "D=message id", "S=message size", "!=do not print index number", "a=list attachments", "b=mail body, newlines replaced by |", "B=mail body, newlines replaced by space". For example: --output-format=dts print email date, time and subject in one line.  
 --tab: Use tab as delimiter when using output-format option.
 --delim!: Custom delimiter when formatting mail with --output-format option. Default delimiter is ';'
 --adjust-day!: Adjust cutoff day. Use integer value (1=mail today and yesterday, 2=mail from day before yesterday until today, and so on). No cutoff date means either "no cutoff date" or "today only" and it depends on command context.  
@@ -181,7 +181,7 @@ write_log: false
 		// load config file
 		var String line
 
-		while ((line = br.readLine()) != null) {
+		while ((line = br.readLine()) !== null) {
 			line = line.trim
 			switch line {
 				case line.startsWith("#") || line.empty: {
@@ -236,7 +236,7 @@ write_log: false
 				mandatoryValue = true
 				name = name.replace("!", "")
 			}
-			desc = removeFunctionName(desc)
+		//	desc = removeFunctionName(desc)
 			var Option opt = new Option()
 
 			opt.setName(name)
@@ -254,7 +254,7 @@ write_log: false
 
 				// extract command name
 				var commandDescription = command.substring(command.indexOf(":") + 1)
-				commandDescription = removeFunctionName(commandDescription)
+	//			commandDescription = removeFunctionName(commandDescription)
 				var cmd = new Command()
 				cmd.setName(commandName)
 				cmd.setDescription(commandDescription)
@@ -296,7 +296,7 @@ write_log: false
 		}
 
 	}
-
+/* 
 	private def static removeFunctionName(String _desc) {
 		var desc = _desc
 		desc = desc.trim()
@@ -307,7 +307,7 @@ write_log: false
 		return desc
 
 	}
-
+*/
 	def static setLogEnabled(boolean enabled) {
 		LOG_ENABLED = enabled
 	}

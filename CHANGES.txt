@@ -1,3 +1,10 @@
+Version 5.4.0 (21.11.2017)
+
+- Updated Xtend libraries to v2.13.0. 
+- Added 'b' and 'B' formatting options to --output-format 
+  global option. 'b' includes mail body where newlines are 
+  separated by '|' and 'B' separates newlines using ' '.
+
 Version 5.3.2 (15.02.2017)
 
 - Updated Xtend libraries to v2.11.0. 
