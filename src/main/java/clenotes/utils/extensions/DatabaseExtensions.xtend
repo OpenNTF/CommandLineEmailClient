@@ -22,7 +22,7 @@ class DatabaseExtensions {
 		var notesSession = CLENotesSession.getSession
 		
 		var formula="From!=\"" + notesSession.getUserName() + "\" & (Form=\"Memo\" | Form=\"Reply\")"
-		if (folderID != null)
+		if (folderID !== null)
 		{
 			formula = formula + String.format('& @Contains(@Text($FolderRef);"%s")', folderID)
 		}
@@ -57,7 +57,7 @@ class DatabaseExtensions {
 		} else {
 			var folderMap = db.folders
 			folderID = folderMap.get(folderName)
-			if (folderID == null) {
+			if (folderID === null) {
 				ErrorLogger::error(-107, "Folder '" + folderName + "' not found.")
 			}
 		}
@@ -74,14 +74,14 @@ class DatabaseExtensions {
 		var folderName = "$FolderAllInfo"
 
 		var folderView = db.getView(folderName)
-		if (folderView == null) {
+		if (folderView === null) {
 			Logger::log("Folder view: " + folderName + " does not exist.")
 
 		} else {
 			var entries = folderView.allEntries
 			var ViewEntry tmpEntry = null
 			var entry = entries.firstEntry
-			while (entry != null) {
+			while (entry !== null) {
 				var values = entry.columnValues
 				var _name = values.get(0) as String
 				var _ID = values.get(1) as String

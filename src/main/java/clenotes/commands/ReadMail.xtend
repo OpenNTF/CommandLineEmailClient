@@ -42,7 +42,7 @@ class ReadMail {
 		var DateTime dt = notesSession.createDateTime("Yesterday")
 
 		var adjustDay = CommandLineArguments::getValue("adjust-day")
-		if (adjustDay != null) {
+		if (adjustDay !== null) {
 			dt.adjustDay(-Integer::parseInt(adjustDay))
 
 		}
@@ -170,14 +170,14 @@ class ReadMail {
 
 			var targetFolder = cmd.getOptionValue("move-to-folder")
 			var sourceFolder = cmd.getOptionValue("folder") //undocumented, but kept if someone uses this
-			if (sourceFolder == null) {
+			if (sourceFolder === null) {
 				sourceFolder = cmd.getOptionValue("source-folder")
 			}
 
 			Logger::log("Move mail from  " + targetFolder + " to " + sourceFolder)
 
 			mailDocument.putInFolder(targetFolder)
-			if (sourceFolder == null) {
+			if (sourceFolder === null) {
 				sourceFolder = "$Inbox"
 			}
 			mailDocument.removeFromFolder(sourceFolder)
@@ -202,7 +202,7 @@ class ReadMail {
 		Output::prettyPrintln(#["Copy-To :", mailDocument.getItemValues("CopyTo")], columnWidth,
 			lineStartIndentLevel)
 		var importance = mailDocument.importance
-		if (importance != null) {
+		if (importance !== null) {
 			Output::prettyPrintln(#["Importance :", importance], columnWidth, lineStartIndentLevel)
 
 		}

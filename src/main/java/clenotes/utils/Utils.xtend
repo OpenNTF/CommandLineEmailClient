@@ -56,7 +56,7 @@ class Utils {
 		var lines = new Vector<String>()
 
 		var line = fr.readLine
-		while (line != null && !line.equals("")) {
+		while (line !== null && !line.equals("")) {
 			lines.add(line.trim)
 			line = fr.readLine
 		}

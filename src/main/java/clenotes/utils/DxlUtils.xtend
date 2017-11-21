@@ -51,7 +51,7 @@ class DxlUtils {
 
 		var Document doc = docCollection.getFirstDocument()
 		var Document tmpdoc
-		while (doc != null) {
+		while (doc !== null) {
 			doc.generateXML(writer)
 			tmpdoc = docCollection.getNextDocument()
 			doc.recycle();
@@ -65,7 +65,7 @@ class DxlUtils {
 	private def static getWriter() {
 		var fileName = CommandLineArguments::getValue("dxl")
 		var Writer writer = null
-		if (fileName == null) {
+		if (fileName === null) {
 			writer = new PrintWriter(System.out)
 
 		} else {
@@ -86,7 +86,7 @@ class DxlUtils {
 		writer.close
 
 		var fileName = CommandLineArguments::getValue("dxl")
-		if (fileName != null) {
+		if (fileName !== null) {
 			println("DXL written to: " + fileName)
 		}
 
@@ -137,7 +137,7 @@ class DxlUtils {
 	}
 
 	def static deleteImportedDxlDatabase() {
-		if (importedDXLDB != null) {
+		if (importedDXLDB !== null) {
 			importedDXLDB.remove
 
 		}

@@ -39,7 +39,7 @@ class MIMEEntityExtensions {
 		if (mimeContentType.equals("multipart")) {
 			var MIMEEntity child1 = mime.getFirstChildEntity();
 			var textAlreadyExtracted = false
-			while (child1 != null) {
+			while (child1 !== null) {
 
 				var contentType = child1.contentType
 				if (contentType == "text" && !textAlreadyExtracted) {
@@ -56,11 +56,11 @@ class MIMEEntityExtensions {
 
 				var MIMEEntity child2 = child1.getFirstChildEntity();
 
-				if (child2 == null) {
+				if (child2 === null) {
 					child2 = child1.getNextSibling();
-					if (child2 == null) {
+					if (child2 === null) {
 						child2 = child1.getParentEntity();
-						if (child2 != null)
+						if (child2 !== null)
 							child2 = child2.getNextSibling();
 					}
 				}
@@ -114,7 +114,7 @@ class MIMEEntityExtensions {
 
 		var String name = null
 		var detachDir = _detachDir
-		if (detachDir == null) {
+		if (detachDir === null) {
 			detachDir = "./"
 		}
 		var _dir = new File(detachDir)
@@ -126,14 +126,14 @@ class MIMEEntityExtensions {
 		mimeEntity.decodeContent
 		printMIMEHeaders(mimeEntity)
 		var header = mimeEntity.getNthHeader("Content-Disposition")
-		if (header != null) {
+		if (header !== null) {
 			if (header.headerVal == "attachment") {
 				Logger::log("Attachment exist.")
 				// attachment exists
 				// note: inline attachments not supported
 				name = header.getParamVal("filename")
 				name = name.replace("\"", "").trim
-				if (name == null || name == "") {
+				if (name === null || name == "") {
 					name = getFileNameFromContentType(mimeEntity)
 				}
 				Logger::log("Attachment name: " + name)
@@ -141,7 +141,7 @@ class MIMEEntityExtensions {
 				// check content-type mime header
 				// save attachment only if saving all attachments or attachment name
 				// contains given attachmentname
-				if (!getNamesOnly && (attachmentName == null || name.contains(attachmentName))) {
+				if (!getNamesOnly && (attachmentName === null || name.contains(attachmentName))) {
 					var session = CLENotesSession.session
 					var Stream stream = session.createStream();
 
@@ -162,7 +162,7 @@ class MIMEEntityExtensions {
 			}
 		}
 
-		if (name == null || name == "") {
+		if (name === null || name == "") {
 			// if name is null or empty it is not found
 			// check content-type mime header
 			name = getFileNameFromContentType(mimeEntity)
@@ -174,8 +174,8 @@ class MIMEEntityExtensions {
 	def static getFileNameFromContentType(MIMEEntity mimeEntity) {
 		var name = "unknown"
 		var header = mimeEntity.getNthHeader("Content-Type")
-		Logger::log("Content-Type header exists: " + (header != null))
-		if (header != null) {
+		Logger::log("Content-Type header exists: " + (header !== null))
+		if (header !== null) {
 			var valAndParams = header.headerValAndParams
 			Logger::log("Value and params: " + valAndParams)
 
