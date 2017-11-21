@@ -1,20 +1,20 @@
 /*
  * Copyright 2002, 2017 IBM Corp.
- *
+ * 
  *  Licensed under the Apache License, Version 2.0 (the "License");
  *  you may not use this file except in compliance with the License.
  *  You may obtain a copy of the License at
- *
+ * 
  *      http://www.apache.org/licenses/LICENSE-2.0
- *
+ * 
  *  Unless required by applicable law or agreed to in writing, software
  *  distributed under the License is distributed on an "AS IS" BASIS,
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.  
- *
+ * 
  *  Author: Sami Salkosuo, sami.salkosuo@fi.ibm.com
-*/
+ */
 package clenotes.utils.extensions
 
 import clenotes.CLENotesSession
@@ -34,8 +34,8 @@ class DocumentExtensions {
 
 	def static getSingleItemValue(Document doc, String itemName) {
 
-		//By default Document.getItemValue() returns Vector even if item type is not
-		//list. This function returns value of element instead of Vector that holds value.
+		// By default Document.getItemValue() returns Vector even if item type is not
+		// list. This function returns value of element instead of Vector that holds value.
 		var value = doc.getItemValue(itemName) as Vector<?>
 		var Object rValue = null
 		if (value != null && value.size > 0) {
@@ -43,7 +43,7 @@ class DocumentExtensions {
 		} else {
 			if (itemName == "DeliveredDate") {
 
-				//if DeliveredDate missing, check PostedDate
+				// if DeliveredDate missing, check PostedDate
 				value = doc.getItemValue("PostedDate") as Vector<?>
 				if (value != null && value.size > 0) {
 					rValue = value.firstElement
@@ -76,13 +76,13 @@ class DocumentExtensions {
 		if (nativeMIME != null && nativeMIME == "1") {
 			"[Reading native MIME body not yet implemented]"
 
-		//need to get all mime parts, check their contemt and encode
-		//if necessary
-		//add option to read mime mail like --mime
+		// need to get all mime parts, check their contemt and encode
+		// if necessary
+		// add option to read mime mail like --mime
 		} else {
-			var body = mailDocument.getMailBody( "Body", lineLength)
+			var body = mailDocument.getMailBody("Body", lineLength)
 			if (body.nullOrEmpty) {
-				body = mailDocument.getMailBody( "$Body", lineLength)
+				body = mailDocument.getMailBody("$Body", lineLength)
 			}
 			body = Utils::removeMultipleEmptyLines(body)
 			body
@@ -97,18 +97,18 @@ class DocumentExtensions {
 		var size = bodyItems.size()
 		Logger::log("Body items size: %d ", size)
 
-		var tabstrip=false
+		var tabstrip = false
 
 		if (size == 1 && lineLength > -1) {
 
-			//could be richtextitem and linelenght specified
+			// could be richtextitem and linelenght specified
 			var item = mailDocument.getFirstItem(fieldName)
 			Logger::log("Item class: %s", item.class.name)
 			if (item instanceof RichTextItem) {
 				var RichTextItem rtitem = item as RichTextItem
-				
+
 				var formattedBody = rtitem.getFormattedText(tabstrip, lineLength, 0)
-				
+
 				var body = rtitem.text
 				Logger::log(
 					"Rich text item Body size: " + body.length + ", formatted body size: " + formattedBody.length)
@@ -117,7 +117,7 @@ class DocumentExtensions {
 
 		}
 
-		//var body = mailDocument.getItemValueString("Body");
+		// var body = mailDocument.getItemValueString("Body");
 		var body = Utils::concatToString(bodyItems)
 		if (body == "") {
 			var item = mailDocument.getFirstItem(fieldName)
@@ -133,12 +133,12 @@ class DocumentExtensions {
 				}
 				case item instanceof Item: {
 
-					//likely a MIME email
+					// likely a MIME email
 					var Item _item = item as Item
 					body = _item.getText()
 					if (body == null) {
 						var mimeEntity = _item.MIMEEntity
-						body = mimeEntity.getText						
+						body = mimeEntity.getText
 					}
 				}
 				case null: {
@@ -148,7 +148,6 @@ class DocumentExtensions {
 		}
 		body
 	}
-
 
 	def static importance(Document mailDocument) {
 		var importance = mailDocument.getItemValueString("Importance")
@@ -168,8 +167,8 @@ class DocumentExtensions {
 	def static String getAttachmentNames(Document doc, String detachDir, String detachAttachmentName, boolean detachAll,
 		boolean replaceFile) {
 		Logger::log("Getting attachment names....")
-		Logger::log("Document subject: " + doc.getSingleItemValue( "Subject"))
-		Logger::log("Document form: " + doc.getSingleItemValue( "Form"))
+		Logger::log("Document subject: " + doc.getSingleItemValue("Subject"))
+		Logger::log("Document form: " + doc.getSingleItemValue("Form"))
 
 		if ((detachAll || detachAttachmentName != null)) {
 			println("Saving attachments from...")
@@ -184,7 +183,7 @@ class DocumentExtensions {
 		Logger::log("hasMIMEAttachments : " + hasMIMEAttachments)
 		if (hasMIMEAttachments && (detachAll || detachAttachmentName != null)) {
 
-			//detach native MIME attachments
+			// detach native MIME attachments
 			var names = ""
 			names = detachMIMEAttachments(doc, detachDir, false, detachAttachmentName, replaceFile)
 			return names
@@ -192,7 +191,7 @@ class DocumentExtensions {
 
 		if (hasNativeMIME) {
 
-			//for return only attachment names from native MIME mail
+			// for return only attachment names from native MIME mail
 			return detachMIMEAttachments(doc, detachDir, true, detachAttachmentName, replaceFile)
 		}
 
@@ -228,16 +227,16 @@ class DocumentExtensions {
 			if (docAttachments.size == 0) {
 				Logger::log("docAttachments.size == 0")
 
-				//cast item to RichTextItem and try to get attachments from that
+				// cast item to RichTextItem and try to get attachments from that
 				try {
 					var RichTextItem rtitem = body as RichTextItem
 					docAttachments = rtitem.embeddedObjects
 					Logger::log("Attachments size from RichTextItem: " + docAttachments.size)
 				} catch (Exception e) {
 
-					//catch potential ClassCastException
-					//reported bug in OpenNTF
-					//http://www.openntf.org/internal/home.nsf/defect.xsp?action=openDocument&documentId=1152722592A1F85086257C3700354B19
+					// catch potential ClassCastException
+					// reported bug in OpenNTF
+					// http://www.openntf.org/internal/home.nsf/defect.xsp?action=openDocument&documentId=1152722592A1F85086257C3700354B19
 					Logger::log(e)
 				}
 			}
@@ -245,13 +244,13 @@ class DocumentExtensions {
 			if (docAttachments.size == 0) {
 				Logger::log("Check attachments from all items..")
 
-				//still not found
-				//check all items for attachments just in case
+				// still not found
+				// check all items for attachments just in case
 				var items = doc.items
 				for (_item : items) {
 					var item = _item as Item
 
-					//Logger::log("item: " + item.name)
+					// Logger::log("item: " + item.name)
 					if (item instanceof RichTextItem) {
 						var rtitem = item as RichTextItem
 						var eObjects = rtitem.embeddedObjects
@@ -261,8 +260,8 @@ class DocumentExtensions {
 					} else {
 						if (item.type == Item.ATTACHMENT) {
 
-							//TODO: add option to disable rich text rendering
-							//by using MIME
+							// TODO: add option to disable rich text rendering
+							// by using MIME
 							Logger::log("File attachment found")
 							Logger::log("  Doc has embedded: " + doc.hasEmbedded)
 							var eObjects = doc.embeddedObjects
@@ -276,8 +275,8 @@ class DocumentExtensions {
 							Logger::log("  value length: " + item.valueLength)
 							Logger::log("  valuestring: " + item.valueString.trim)
 
-						//add name to list
-						//and extract if needed
+						// add name to list
+						// and extract if needed
 						}
 					}
 				}
@@ -297,7 +296,7 @@ class DocumentExtensions {
 						Logger::log("detach-dir: " + dir)
 						dir = detachDir.replace('\\', '/')
 
-						//dir=dir.replace('/','\\\\')
+						// dir=dir.replace('/','\\\\')
 						if(!dir.endsWith("/")) dir = dir + "/"
 						Logger::log("detach-dir modified: " + dir)
 					} else {
@@ -305,9 +304,9 @@ class DocumentExtensions {
 
 					}
 
-					//print "detachAll",detachAll
+					// print "detachAll",detachAll
 					var extractedFile = dir + fileName
-					if (!replaceFile) { //if --replace option not specified, modify file name
+					if (!replaceFile) { // if --replace option not specified, modify file name
 						extractedFile = Utils::checkIfFileExists(extractedFile)
 					}
 
@@ -330,7 +329,6 @@ class DocumentExtensions {
 		return names
 	}
 
-
 	def static getFormattedMail(Document mailDoc, String _formatString, int index, String _delimiter) {
 		var delimiter = _delimiter
 		if(delimiter == null) delimiter = ";"
@@ -341,7 +339,7 @@ class DocumentExtensions {
 		}
 		var datetime = mailDoc.getSingleItemValue("DeliveredDate") as DateTime
 
-		//mailDoc.getItemValueDateTimeArray("DeliveredDate").get(0) as DateTime
+		// mailDoc.getItemValueDateTimeArray("DeliveredDate").get(0) as DateTime
 		var formatString = _formatString.toCharArray
 		for (_chr : formatString) {
 			var chr = Character::toString(_chr)
@@ -372,8 +370,8 @@ class DocumentExtensions {
 						txt.append(datetime.getTimeZone())
 					}
 
-					//if datetime.isDST():
-					//  txt.write(' (DST)')
+					// if datetime.isDST():
+					// txt.write(' (DST)')
 					txt.append(delimiter)
 				}
 				case 'g': {
@@ -413,13 +411,13 @@ class DocumentExtensions {
 					var value = mailDoc.getItemValueString("$MessageID")
 					txt.append(value)
 					txt.append(delimiter)
-
+					
 				}
 				case 'S': {
 					var value = mailDoc.getSize()
 					txt.append(value)
 					txt.append(delimiter)
-
+					
 				}
 				case 'a': {
 					var value = getAttachmentNames(mailDoc, false) as String
@@ -428,13 +426,29 @@ class DocumentExtensions {
 					}
 					txt.append(value)
 					txt.append(delimiter)
-
+					
+				}
+				case 'b': {
+					// body text where new lines replaced by |
+					var value = mailDoc.getMailBody(-1)
+					value = value.replaceAll("\r", "").replaceAll("\n", "|");
+					txt.append(value)
+					txt.append(delimiter)
+					
+				}
+				case 'B': {
+					// body text where new lines replaced by space
+					var value = mailDoc.getMailBody(-1)
+					value = value.replaceAll("\r", "").replaceAll("\n", " ");
+					txt.append(value)
+					txt.append(delimiter)
+					
 				}
 			}
 		}
 
 		var rv = txt.toString
-		return rv.substring(0, rv.length - delimiter.length) //#removes delimiter at the end
+		return rv.substring(0, rv.length - delimiter.length) // #removes delimiter at the end
 	}
 
 	def static detachMIMEAttachments(Document doc, String _detachDir, boolean getNamesOnly, String attachmentName,
@@ -448,9 +462,9 @@ class DocumentExtensions {
 
 		if (mime != null) {
 
-			val isMultipartEntity=mime.getContentType().equals("multipart")
+			val isMultipartEntity = mime.getContentType().equals("multipart")
 			Logger::log("isMultipartEntity: " + isMultipartEntity)
-	
+
 			// If multipart MIME entity
 			if (isMultipartEntity) {
 
@@ -461,7 +475,7 @@ class DocumentExtensions {
 					var contentType = child1.contentType
 					if (contentType == "application") {
 						var String name = null
-						name = child1.detachAttachment( _detachDir, getNamesOnly, attachmentName, replaceFile)
+						name = child1.detachAttachment(_detachDir, getNamesOnly, attachmentName, replaceFile)
 
 						if (!name.nullOrEmpty) {
 							names = names + name + ","
@@ -485,7 +499,7 @@ class DocumentExtensions {
 				var contentType = mime.contentType
 				if (contentType == "application") {
 					var String name = null
-					name = mime.detachAttachment( _detachDir, getNamesOnly, attachmentName, replaceFile)
+					name = mime.detachAttachment(_detachDir, getNamesOnly, attachmentName, replaceFile)
 					names = names + name + ","
 				}
 			}
@@ -500,7 +514,7 @@ class DocumentExtensions {
 
 	def static printFields(Document document) {
 
-		//list fields and types in the document
+		// list fields and types in the document
 		var items = document.items
 
 		var columnFields = newHashMap()
@@ -618,7 +632,7 @@ class DocumentExtensions {
 		list.add("NAME")
 		list.add("TYPE")
 
-		//list.add("Java class")
+		// list.add("Java class")
 		Output.prettyPrintln(list, 30, 0)
 		for (name : sortedNames) {
 			list = newArrayList()
@@ -634,7 +648,7 @@ class DocumentExtensions {
 			var typeAndClass = columnFields.get(name).split(",")
 			list.add(typeAndClass.get(0))
 
-			//list.add(typeAndClass.get(1))
+			// list.add(typeAndClass.get(1))
 			Output.prettyPrintln(list, 30, 0)
 			index = index + 1
 		}
@@ -650,12 +664,11 @@ class DocumentExtensions {
 		var itemValues = document.getItemValue(fieldName)
 
 		if (itemValues.size == 0) {
-			println("  N/A")						
+			println("  N/A")
 		}
 		for (value : itemValues) {
 			println("  " + value)
 		}
 	}
-
 
 }
